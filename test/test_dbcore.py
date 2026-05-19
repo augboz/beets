@@ -26,6 +26,7 @@ import pytest
 from beets import dbcore
 from beets.dbcore import query, sort, types
 from beets.dbcore.db import DBCustomFunctionError, FormattedMapping, Index
+from beets.dbcore.queryparse import ModelQuery
 from beets.library import Album, Item, LibModel
 from beets.util import cached_classproperty
 
@@ -827,3 +828,9 @@ class TestException:
         with pytest.raises(DBCustomFunctionError):
             with db.transaction() as tx:
                 tx.query("select * from test where plz_raise()")
+
+
+class ParseQueryTest:
+    def test_parse_invalid_query_string(self):
+        with pytest.raises(dbcore.query.ParsingError):
+            ModelQuery.parse(ModelFixture1, 'foo"')
