@@ -1,6 +1,31 @@
+# This file is part of beets.
+# Copyright 2016, Adrian Sampson.
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
+# the following conditions:
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+
+"""Tests for dbcore query parsing helpers."""
+
+import unittest
+
+import pytest
+
+from beets.dbcore import query, sort
+from beets.dbcore.queryparse import ModelQuery, QueryTerm
+from beets.test.fixtures import ModelFixture1, SortFixture
+
+
 class QueryParseTest(unittest.TestCase):
     def pqp(self, part):
-        term = dbcore.queryparse.QueryTerm.make(part)
+        term = QueryTerm.make(part)
         return term.field, term.pattern, term.get_query_cls(ModelFixture1)
 
     def test_one_basic_term(self):
@@ -55,7 +80,7 @@ class QueryParseTest(unittest.TestCase):
 
     def test_implicit_path(self):
         q = "/tmp"
-        r = ("path", "/tmp", dbcore.query.PathQuery)
+        r = ("path", "/tmp", query.PathQuery)
         assert self.pqp(q) == r
 
 
@@ -168,5 +193,5 @@ class ParseSortedQueryTest(unittest.TestCase):
 
 class ParseQueryTest:
     def test_parse_invalid_query_string(self):
-        with pytest.raises(dbcore.query.ParsingError):
+        with pytest.raises(query.ParsingError):
             ModelQuery.parse(ModelFixture1, 'foo"')
