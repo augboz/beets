@@ -33,6 +33,7 @@ from .match import (
     tag_album,
     tag_item,
 )
+from .source import Source
 
 
 def __getattr__(name: str):
@@ -53,6 +54,7 @@ __all__ = [
     "Match",
     "Proposal",
     "Recommendation",
+    "Source",
     "TrackInfo",
     "TrackMatch",
     "assign_items",
