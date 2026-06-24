@@ -8,7 +8,7 @@ rock and roll:
 
 # Hyphenation: k-pop, j-rock, post-rock, lo-fi, p-funk, synthpop, avant-garde
 \g<1>-\g<2>:
-    - (c|k|j) *(folk|goth|pop|rock|ska|trance)
+    - ([ckj]) *(folk|goth|pop|rock|ska|trance)
 post-\g<1>:
     - post +(\w+)
 lo-fi:
