@@ -18,7 +18,7 @@ lo-fi:
 synth\g<1>:
     - synth[ -]+(\w+)
 avant-garde:
-    - avant *(gard(e)?)?
+    - avant *(garde?)?
     - avant-gard
 
 # Nu- spellings: nu-disco -> nu disco, nu-jazz -> nu jazz
