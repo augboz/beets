@@ -54,7 +54,7 @@ def normalize_genre(
     alias_patterns: list[AliasPatternWithReplacement],
     genre: str,
 ) -> str:
-    """Return the canonical form of *genre* using *alias_patterns*.
+    """Normalize genre using alias replacements.
 
     Tries each alias entry in order. The first full-match wins; the replacement
     template is expanded via ``re.Match.expand()`` so ``\\g<N>``
