@@ -281,16 +281,6 @@ class LastGenrePluginTest(IOMixin, PluginTestCase):
         )
 
 
-@pytest.fixture
-def config(config):
-    """Provide a fresh beets configuration for every test/parameterize call
-
-    This is necessary to prevent the following parameterized test to bleed
-    config test state in between test cases.
-    """
-    return config
-
-
 @pytest.mark.parametrize(
     "config_values, item_genre, mock_genres, expected_result",
     [
