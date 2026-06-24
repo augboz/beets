@@ -75,6 +75,6 @@ def normalize_genre(
                 )
                 continue
             if expanded != genre:
-                logger.extra_debug("aliased: {} -> {}", genre, expanded)
+                logger.extra_debug("replaced using 'aliases': {} -> {}", genre, expanded)
             return expanded
     return genre_lower
