@@ -14,7 +14,7 @@ post-\g<1>:
 lo-fi:
     - (g?lo) *fi
 \g<1>-funk:
-    - (p|g) *funk
+    - ([pg]) *funk
 synth\g<1>:
     - synth[ -]+(\w+)
 avant-garde:
