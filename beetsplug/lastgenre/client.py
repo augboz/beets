@@ -132,15 +132,14 @@ class LastFmClient:
         # Apply aliases and log each change.
         # Filter forbidden genres on every call so ignorelist hits are logged.
         # Artist is always the first element in args (album, artist, track lookups).
-        result = []
-        for genre in genres:
-            if self._alias_patterns:
-                genre = normalize_genre(self._log, self._alias_patterns, genre)
-
-            if not is_ignored(self._log, self._ignore_patterns, genre, args[0]):
-                result.append(genre)
-
-        return result
+        return [
+            normal
+            for g in genres
+            if (normal := normalize_genre(self._log, self._alias_patterns, g))
+            and not is_ignored(
+                self._log, self._ignore_patterns, normal, args[0]
+            )
+        ]
 
     def fetch(self, kind: str, obj: LibModel, *args: str) -> list[str]:
         """Fetch Last.fm genres for the specified kind and entity.
