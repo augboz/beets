@@ -408,29 +408,18 @@ class LastGenrePlugin(plugins.BeetsPlugin):
     ) -> list[str]:
         """Filter genres through whitelist and ignorelist.
 
-        Drops empty/whitespace-only strings, then applies whitelist and
-        ignorelist checks. Returns all genres if neither is configured.
-        Whitelist is checked first for performance reasons (ignorelist regex
-        matching is more expensive and for some call sites ignored genres were
-        already filtered).
+        Strips leading/trailing whitespace and drops empty strings, then
+        applies whitelist and ignorelist checks. Whitelist is checked first
+        for performance reasons (ignorelist regex matching is more expensive
+        and for some call sites ignored genres were already filtered).
         """
-        cleaned = [g for g in genres if g and g.strip()]
-        if not self.whitelist and not self.ignore_patterns:
-            return cleaned
-
-        result = []
-        for genre in cleaned:
-            if self.whitelist and genre.lower() not in self.whitelist:
-                continue
-
-            if self.ignore_patterns and is_ignored(
-                self._log, self.ignore_patterns, genre, artist
-            ):
-                continue
-
-            result.append(genre)
-
-        return result
+        non_blank = [s for g in genres if (s := g.strip())]
+        return [
+            g
+            for g in non_blank
+            if (not self.whitelist or g.lower() in self.whitelist)
+            and not is_ignored(self._log, self.ignore_patterns, g, artist)
+        ]
 
     # Genre resolution pipeline.
 
