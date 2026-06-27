@@ -699,13 +699,13 @@ class ParseSortedQueryTest(unittest.TestCase):
         q, s = self.psq("foo , bar")
         assert isinstance(q, query.OrQuery)
         assert isinstance(s, sort.NullSort)
-        assert len(q.subqueries) == 2
+        assert len(q.subqueries) == 4
 
     def test_no_space_before_comma_or_query(self):
         q, s = self.psq("foo, bar")
         assert isinstance(q, query.OrQuery)
         assert isinstance(s, sort.NullSort)
-        assert len(q.subqueries) == 2
+        assert len(q.subqueries) == 4
 
     def test_no_spaces_or_query(self):
         q, s = self.psq("foo,bar")
@@ -717,13 +717,13 @@ class ParseSortedQueryTest(unittest.TestCase):
         q, s = self.psq("foo , bar ,")
         assert isinstance(q, query.OrQuery)
         assert isinstance(s, sort.NullSort)
-        assert len(q.subqueries) == 3
+        assert len(q.subqueries) == 5
 
     def test_leading_comma_or_query(self):
         q, s = self.psq(", foo , bar")
         assert isinstance(q, query.OrQuery)
         assert isinstance(s, sort.NullSort)
-        assert len(q.subqueries) == 3
+        assert len(q.subqueries) == 5
 
     def test_only_direction(self):
         q, s = self.psq("-")
