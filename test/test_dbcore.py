@@ -626,7 +626,7 @@ class QueryParseTest(unittest.TestCase):
 
 class QueryFromStringsTest(unittest.TestCase):
     def qfs(self, strings):
-        return dbcore.queryparse.build_and_query(ModelFixture1, strings)
+        return ModelQuery.build_and_query(ModelFixture1, strings)
 
     def test_zero_parts(self):
         q = self.qfs([])
@@ -654,7 +654,7 @@ class QueryFromStringsTest(unittest.TestCase):
 
 class SortFromStringsTest(unittest.TestCase):
     def sfs(self, strings):
-        return dbcore.queryparse.sort_from_strings(ModelFixture1, strings)
+        return ModelQuery.get_sort(ModelFixture1, strings)
 
     def test_zero_parts(self):
         s = self.sfs([])
@@ -687,7 +687,7 @@ class SortFromStringsTest(unittest.TestCase):
 
 class ParseSortedQueryTest(unittest.TestCase):
     def psq(self, parts):
-        return dbcore.parse_sorted_query(ModelFixture1, parts.split())
+        return ModelQuery.parse(ModelFixture1, parts.split())
 
     def test_and_query(self):
         q, s = self.psq("foo bar")
